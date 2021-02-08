@@ -14,7 +14,8 @@ To make data of file(users)
 acessible by storing it in a Struct Array.
 */
 
-void extractUsers(){
+void extractUsers()
+{
   FILE *f;
   f = fopen("user.txt","r");
   char dta[30];
@@ -25,7 +26,8 @@ void extractUsers(){
     char sc[10];
     int i=0;
 
-    while(dta[i]!=' '){
+    while(dta[i]!=' ')
+    {
       nm[i] = dta[i];
       i++;
     }
@@ -34,8 +36,8 @@ void extractUsers(){
     i++;
     int j=0;
 
-    while(dta[i]!='\n'){
-
+    while(dta[i]!='\n')
+    {
       sc[j] = dta[i];
       j++;i++;
     }
@@ -51,12 +53,14 @@ void extractUsers(){
 /*
   To count the Number of Users Registered.
 */
-int countUsers(){
+int countUsers()
+{
   FILE *f;
   f = fopen("user.txt", "r");
   int count =0;
   char chek[40];
-  while(fgets(chek,40,f)){
+  while(fgets(chek,40,f))
+  {
     count++;
   }
   return count;
@@ -64,12 +68,14 @@ int countUsers(){
 /*
  To Update the User List into the file along with scores.
 */
-void saveUsers(){
+void saveUsers()
+{
   FILE *f;
 
   f = fopen("user.txt","w");
 
-  for(int i=0;i<len;i++){
+  for(int i=0;i<len;i++)
+  {
     fprintf(f,"%s %d\n",users[i].name,users[i].score);
   }
   fclose(f);
@@ -80,12 +86,14 @@ void saveUsers(){
 */
 void printUsers()
 {
-  for(int i=0;i<len;i++){
+  for(int i=0;i<len;i++)
+  {
     //extractUsers();
     display_Align();
     printf("%s %d\n",users[i].name,users[i].score);
     //printf("\n");
   }
+
 }
 /*
   Adds a user if limit is not reached
@@ -93,42 +101,50 @@ void printUsers()
   1: User Added
   0: User Limit Exeded, so user not added.
 */
-int AddUser(char nm[]){
+int AddUser(char nm[])
+{
 
-  if(len == 10){
+  if(len == 10)
+  {
     return 0;
-   }
+  }
   strcpy(users[len].name,nm);
   users[len].score = 0;
   len++;
   saveUsers();
   return 1;
-
-
 }
-int checkUser(char nm[]){
+
+int checkUser(char nm[])
+{
   int chk =0;
-  for(int i=0;i<len;i++){
-    if(strcmp(users[i].name,nm)==0){
+  for(int i=0;i<len;i++)
+  {
+    if(strcmp(users[i].name,nm)==0)
+    {
       chk =1;}
     }
     return chk;
-
-
 }
+
 /*
   To delete an user from the list if found
   return values:
   1: Element found and Deleted
   0: Element Not found
 */
-int DelUser(char nm[]){
+
+int DelUser(char nm[])
+{
   int chk =0;
-  for(int i=0;i<len;i++){
-    if(strcmp(users[i].name,nm)==0){
+  for(int i=0;i<len;i++)
+  {
+    if(strcmp(users[i].name,nm)==0)
+    {
       chk =1;
 
-      for(int j=i;j<len-1;j++){
+      for(int j=i;j<len-1;j++)
+      {
         char temp[20];
         strcpy(temp,users[j].name);
         strcpy(users[j].name,users[j+1].name);
@@ -141,27 +157,32 @@ int DelUser(char nm[]){
       break;
     }
   }
-
-  if(chk){
+  if(chk)
+  {
     len--;
     saveUsers();
   }
   return  chk;
-}
+  }
+
 // User FUncs End
 
 // Basic Settings Start ;
 
 /* Save State Check */
-void loadSettings(){
+
+void loadSettings()
+{
   FILE *f;
   f = fopen("setting.txt","r");
   for(int i=0;i<2;i++){
     fscanf(f,"%s %d",&settings[i].setting, &settings[i].value);
   }
   fclose(f);
+
 }
-void saveSettings(){
+void saveSettings()
+{
   FILE *f;
   f = fopen("setting.txt","w");
   for(int i=0;i<2;i++){
@@ -169,44 +190,51 @@ void saveSettings(){
   }
   fclose(f);
 }
+
 /*
   checks the value of SaveSett setting
   which allows user to be able to save their in game progress
 */
-int checkSave(){
+
+int checkSave()
+{
   return settings[0].value;
 }
+
 /*
  Changes the value of SaveSet settings
  n shold be 0 or 1, make sure.
 */
-void ammendSave(int n){
+
+void ammendSave(int n)
+{
   settings[0].value = n;
   saveSettings();
 }
+
 /*
   Checks the difficulty Level of game
 */
-int checkDiff(){
+
+int checkDiff()
+{
   return settings[1].value;
 }
+
 /*
   Ammends the difficulty Level of Game
 */
-void ammendDiff(int n){
+
+void ammendDiff(int n)
+{
   settings[1].value = n;
   saveSettings();
 }
 
 // Basic settings Functions End;
 
-void init_users(){
+void init_users()
+{
   extractUsers();
   loadSettings();
 }
-
-
-//void main(){
-  //extractUsers();
-  //printUsers();
-//}

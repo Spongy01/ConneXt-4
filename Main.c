@@ -10,7 +10,8 @@
 #include "display.c"
 #include "funcs.h"
 /*File Opening, if previously not presnet, then creation;*/
-void init(){
+void init()
+{
   FILE *f;
   f = fopen("user.txt","a");
   fclose(f);
@@ -21,7 +22,8 @@ void init(){
 		int size = ftell(f);
 	//	printf("Size of the file in bytes: %d\n", size);
     //sleep(5);
-    if(size ==0){
+    if(size ==0)
+    {
       fprintf(f,"SaveSett 0\nDiff 0\n");
     }
 	}
@@ -31,8 +33,8 @@ void init(){
 
 }
 
-
-int main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[])
+{
   init();
   init_users();
   // Now call the display fuctions to print stuff(pending.)
