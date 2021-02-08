@@ -13,6 +13,7 @@
 To make data of file(users)
 acessible by storing it in a Struct Array.
 */
+
 void extractUsers(){
   FILE *f;
   f = fopen("user.txt","r");
@@ -102,6 +103,16 @@ int AddUser(char nm[]){
   len++;
   saveUsers();
   return 1;
+
+
+}
+int checkUser(char nm[]){
+  int chk =0;
+  for(int i=0;i<len;i++){
+    if(strcmp(users[i].name,nm)==0){
+      chk =1;}
+    }
+    return chk;
 
 
 }

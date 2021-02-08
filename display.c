@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include "users.c"
 #include "funcs.h"
+#include "multi.c"
 
 void display_savestate(){
   system("cls");
@@ -80,8 +81,6 @@ void display_setting()
     }
   }
 }
-
-
 /*
   Start Screen
   will give options to user.
@@ -90,9 +89,6 @@ void display_setting()
 void display_Align(){
   printf("\t\t\t\t\t\t\t");
 }
-
-
-
 void display_users()
 {
   system("cls");
@@ -203,7 +199,7 @@ void display_play()//play options menu
   //display_single();
   break;
   case 2:
-  //display_multi();
+    onStartMulti();
   break;
   case 3:
   display_Start();
