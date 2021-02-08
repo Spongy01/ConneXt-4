@@ -14,7 +14,8 @@
 #include "funcs.h"
 #include "multi.c"
 
-void display_savestate(){
+void display_savestate()
+{
   system("cls");
   int a;
   printf(" \t\t\t\t\t\t\tCONECTX4");
@@ -24,10 +25,12 @@ void display_savestate(){
   display_Align();
   printf("So that it can be loaded when opening the game again.\n\n");
   display_Align();
-  if(checkSave()){
+  if(checkSave())
+  {
     printf("Currently Selected: Setting Enabled\n\n");
   }
-  else{
+  else
+  {
     printf("Currently Selected: Setting Disabled\n\n");
   }
   display_Align();
@@ -38,18 +41,20 @@ void display_savestate(){
   printf("3. Go Back\n");
   display_Align();
   scanf("%d",&a);
-  if(a<1 || a>3){
+  if(a<1 || a>3)
+  {
     printf("Not Valid Choice");
     display_savestate();
   }
-  if(a==1||a==2){
+  if(a==1||a==2)
+  {
     ammendSave(a-1);
     display_savestate();
   }
   display_setting();
 
-
 }
+
 void display_setting()
   {
   system("cls");
@@ -63,20 +68,25 @@ void display_setting()
   display_Align();
   printf("3. Go Back\n");
   scanf("%d",&a);
-  if(a<1 || a>3){
+  if(a<1 || a>3)
+  {
     printf("Not Valid Choice");
     display_setting();
   }
 
-  switch(a){
-    case 1:{
+  switch(a)
+  {
+    case 1:
+    {
       display_savestate();
     }
 
-    case 2:{
+    case 2:
+    {
 
     }
-    case 3:{
+    case 3:
+    {
       display_options();
     }
   }
@@ -86,9 +96,11 @@ void display_setting()
   will give options to user.
   and different Screens Will be printed.by calling different Functions
 */
-void display_Align(){
+void display_Align()
+{
   printf("\t\t\t\t\t\t\t");
 }
+
 void display_users()
 {
   system("cls");
@@ -108,20 +120,24 @@ void display_users()
 
   int choice ;
   scanf("%d",&choice);
-  switch(choice){
+  switch(choice)
+  {
     case 1:
-    {char nm[20];
+    {
+      char nm[20];
       printf("Enter UserName: ");
       char n[1];
       gets(n);
       gets(nm);
       int chk = AddUser(nm);
-      if(chk){
+      if(chk)
+      {
         printf("User Added Successfully.");
         sleep(2);
         display_users();
       }
-      else{
+      else
+      {
         printf("User Limit Exceeded, Delete an user to add another one.");
         sleep(2);
         display_users();
@@ -129,32 +145,36 @@ void display_users()
       break;
     }
 
-  case 2:{
-  char nm[20];
-  printf("Enter UserName: ");
-  char n[1];
-  gets(n);
-  gets(nm);
-  int chk = DelUser(nm);
-  if(chk){
-    printf("User Deleted Successfully.");
-    sleep(2);
-    display_users();
-  }
-  else{
-    printf("User Not Found.");
-    sleep(2);
-    display_users();
-  }}
+    case 2:
+    {
+      char nm[20];
+      printf("Enter UserName: ");
+      char n[1];
+      gets(n);
+      gets(nm);
+      int chk = DelUser(nm);
+      if(chk)
+      {
+        printf("User Deleted Successfully.");
+        sleep(2);
+        display_users();
+      }
+      else
+      {
+        printf("User Not Found.");
+        sleep(2);
+      display_users();
+      }
+    }
 
-  case 3:
+    case 3:
    display_options();
 }
 
-
 }
-void display_options(){//settings sub menu
-  system("cls");
+void display_options()
+{//settings sub menu
+   system("cls");
    int i;
    printf(" \t\t\t\t\t\t\tCONECTX4");
    printf("\n\n");
@@ -194,7 +214,8 @@ void display_play()//play options menu
   printf("\t\t\t\t\t\t\t2.multiplayer\n");
   printf("\t\t\t\t\t\t\t3.go back\n");
   scanf("%d",&z);
-  switch(z){
+  switch(z)
+  {
   case 1:
   //display_single();
   break;
@@ -206,7 +227,8 @@ void display_play()//play options menu
   break;
 }
 }
-void display_Start(){
+void display_Start()
+{
   system("cls");
   int input;
   printf(" \t\t\t\t\t\t\tCONECTX4");
@@ -216,16 +238,16 @@ void display_Start(){
   printf("\t\t\t\t\t\t\t3.exit\n");
   display_Align();
   scanf("%d",&input);
-  if (input==1){
+  if (input==1)
+  {
     display_play();
-
   }
-  else if(input==2){
-
+  else if(input==2)
+  {
     display_options();
   }
-
-  else if(input==3){
+  else if(input==3)
+  {
     display_exit();
   }
 }
