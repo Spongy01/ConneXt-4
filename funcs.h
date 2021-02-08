@@ -5,7 +5,7 @@ struct data{char name[20];int score;}users[10];
 struct sett{char setting[20];int value;}settings[2];
 struct user{char name[20];}current[2];
 int len=0;
-int rows =6, columns =7;
+  char board[6][7];
 
 void extractUsers();
 int countUsers();
