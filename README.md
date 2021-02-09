@@ -12,6 +12,7 @@ How it works?
 
 
 SETUP:
+
 Place all the flies in a single folder and compile and run the Main.c file.
 
 --GAMEPLAY:
@@ -37,4 +38,4 @@ Place all the flies in a single folder and compile and run the Main.c file.
 (the game is turn based)
 
 P.S. Work in Progress. (Stay Tuned for Further Updates)
-=======
+

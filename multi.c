@@ -6,10 +6,12 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "funcs.h"
 
 int rows =6;
 int columns =7;
+char win =' ';
 void select_user();
 void printBoard();
 void makeBoard();
@@ -19,9 +21,22 @@ int checkFour(int, int, int, int,int,int,int,int);
 int horizontalCheck();
 int verticalCheck();
 int diagonalCheck();
+void bringDown(int, int);
 /*
   Called when Multiplayer is Selected
 */
+
+void bringDown(int row, int col){
+
+   for(int i=row;i>0;i--){
+     board[i][col] = board[i-1][col];
+   }
+   //printBoard();
+   //sleep(2);
+   if(board[0][col] != ' '){
+     board[0][col] = ' ';
+   }
+}
 int takeTurn(int player, const char *PIECES)
 {
   printf("Player %d (%c):\nEnter number coordinate: ", player + 1, PIECES[player]);
@@ -53,32 +68,69 @@ int takeTurn(int player, const char *PIECES)
 
 void onStartMulti()
 {
-  const char *PIECES = "XO";
+    const char *PIECES = "XO";
+    int score_diff =1;
+    int score_p1=0;
+    int score_p2=0;
+    if(checkDiff()){
+      score_diff =2;
+    }
+    int diff =0;
     select_user();
     makeBoard();
     int turn=0,done=0;
-    for(turn = 0; turn <rows*columns && !done; turn++)
+    for(turn = 0; turn <rows*columns && (diff<score_diff); turn++)
     {
        system("cls");
+       printf("Score Board : P1 : %d :: P2 : %d ::\n",score_p1,score_p2);
        printBoard();
        while(!takeTurn(turn % 2,PIECES))
        {
+
           printBoard();
           puts("\n**Column full!**\n");
        }
+
+       label:
+
        done = checkWin();
+       if(done){
+         if(win=='X'){
+           score_p1++;
+           win =' ';
+         }
+         else if(win =='O'){
+           score_p2++;
+           win = ' ';
+
+         }
+         diff = abs(score_p1-score_p2);
+         if(diff==score_diff){
+           break;
+         }
+       }
+       system("cls");
+       printf("Score Board : P1 : %d :: P2 : %d ::\n",score_p1,score_p2);
+       printBoard();
+       if(done){
+       goto label;
+     }
     }
     system("cls");
     printBoard();
 
-    if(turn == rows*columns && !done)
+    if(turn == rows*columns && diff!= score_diff)
     {
       puts("\nIts a Tie");
     }
-    else
+    else if(diff == score_diff)
     {
-      turn--;
-      printf("Player %d (%c) wins !\n",turn % 2 + 1, PIECES[turn%2]);
+      if(score_p1>score_p2){
+        printf("Player 1 (%c) wins !\n", PIECES[0]);
+      }
+      else{
+        printf("Player 2 (%c) wins !\n", PIECES[1]);
+      }
     }
 }
 
@@ -90,13 +142,14 @@ void select_user()
     char nm[20];
     char dummy[1];
     gets(dummy);
-    printf("Select the Player 1: ");
+    printf("\n");
+    printf("\t\t\tSelect the Player 1:   ");
     gets(nm);
     int check = checkUser(nm);
 
     if(!check)
     {
-      printf("User Not Found");
+      printf("\n\t\t\t\t\tUser Not Found. (Press Enter to Continue)\n");
       goto p1;
     }
     else
@@ -108,12 +161,13 @@ void select_user()
   p2:
   {
   char nm[20];
-  printf("Select the Player 2: ");
+  printf("\n");
+  printf("\t\t\tSelect the Player 2:   ");
   gets(nm);
   int check = checkUser(nm);
   if(!check)
   {
-    printf("User Not Found");
+    printf("\n\t\t\t\t\tUser Not Found. (Press Enter to Continue)\n");
     goto p2;
   }
   else
@@ -144,6 +198,15 @@ int horizontalCheck()
       {
         if(checkFour(row,row,row,row,col,col+1,col+2,col+3))
         {
+          win = board[row][col];
+          if(checkDiff()){
+
+            bringDown(row,col);
+            bringDown(row,col+1);
+            bringDown(row,col+2);
+            bringDown(row,col+3);
+          }
+
           return 1;
         }
       }
@@ -161,7 +224,16 @@ int verticalCheck()
       {
         if(checkFour(row,row+1,row+2,row+3,col,col,col,col))
         {
+          win = board[row][col];
+          if(checkDiff()){
+            bringDown(row+3,col);
+            bringDown(row+2,col);
+            bringDown(row+1,col);
+            bringDown(row,col);
+          }
+
           return 1;
+
         }
       }
     }
@@ -177,7 +249,14 @@ for(row = 0; row < (rows-3); row++)
    for(col = 0; col < (columns-3); col++)
    {
       if(checkFour(row,row+1,row+2,row+3,col,col+1,col+2,col+3))
-      {
+      {win = board[row][col];
+        if(checkDiff()){
+          bringDown(row,col);
+          bringDown(row+1,col+1);
+          bringDown(row+2,col+2);
+          bringDown(row+3,col+3);
+        }
+
          return 1;
       }
    }
@@ -188,6 +267,13 @@ for(row = 3; row < (rows); row++)
    {
       if(checkFour(row,row-1,row-2,row-3,col,col+1,col+2,col+3))
       {
+        win = board[row][col];
+        if(checkDiff()){
+          bringDown(row,col);
+          bringDown(row-1,col+1);
+          bringDown(row-2,col+2);
+          bringDown(row-3,col+3);
+        }
          return 1;
       }
    }

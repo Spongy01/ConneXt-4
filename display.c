@@ -11,6 +11,7 @@
 #include "users.c"
 #include "funcs.h"
 #include "multi.c"
+#include "single.c"
 
 void display_savestate()
 {
@@ -18,6 +19,8 @@ void display_savestate()
   int a;
   printf(" \t\t\t\t\t\t\tCONECTX4");
   printf("\n\n");
+  display_Align();
+  printf("\tSAVE STATE\n\n");
   display_Align();
   printf("Allows User to save the current state of game\n");
   display_Align();
@@ -36,8 +39,9 @@ void display_savestate()
   display_Align();
   printf("2. Enable\n");
   display_Align();
-  printf("3. Go Back\n");
+  printf("3. Go Back\n\n");
   display_Align();
+  printf("Enter: ");
   scanf("%d",&a);
   if(a<1 || a>3)
   {
@@ -60,11 +64,15 @@ void display_setting()
   printf(" \t\t\t\t\t\t\tCONECTX4");
   printf("\n\n");
   display_Align();
-  printf("1. Save Game Progress In-Game\n");
+  printf("\tSETTINGS\n\n");
   display_Align();
-  printf("2. Toggle Difficulty\n");
+  printf("1. Toggle Game Modes\n");
   display_Align();
-  printf("3. Go Back\n");
+  printf("2. Save State\n");
+  display_Align();
+  printf("3. Go Back\n\n");
+  display_Align();
+  printf("Enter: ");
   scanf("%d",&a);
   if(a<1 || a>3)
   {
@@ -76,12 +84,14 @@ void display_setting()
   {
     case 1:
     {
-      display_savestate();
+      display_modes();
+      break;
     }
 
     case 2:
     {
-
+        display_savestate();
+        break;
     }
     case 3:
     {
@@ -89,6 +99,49 @@ void display_setting()
     }
   }
 }
+void display_modes()
+{
+  system("cls");
+  int a;
+  printf(" \t\t\t\t\t\t\tCONECTX4");
+  printf("\n\n");
+  display_Align();
+  printf("\tGAME MODES\n\n");
+  display_Align();
+
+  printf("1. Simple - Normal Connect-4 Game.\n");
+  display_Align();
+  printf("2. Adv - ConneXt4 ; Tetris Twist.\n");
+  display_Align();
+  printf("3. Go Back.\n\n");
+  display_Align();
+  if(checkDiff())
+  {
+    printf("Currently Selected: Adv.\n\n");
+  }
+  else
+  {
+    printf("Currently Selected: Simple.\n\n");
+  }
+  display_Align();
+  printf("Enter: ");
+  scanf("%d",&a);
+  if(a<1 || a>3)
+  {
+    printf("Not Valid Choice");
+    display_modes();
+  }
+  if(a==1||a==2)
+  {
+    ammendDiff(a-1);
+    display_modes();
+  }
+  display_setting();
+
+}
+
+
+
 /*
   Start Screen
   will give options to user.
@@ -96,7 +149,7 @@ void display_setting()
 */
 void display_Align()
 {
-  printf("\t\t\t\t\t\t\t");
+  printf("\t\t\t\t\t\t");
 }
 
 void display_users()
@@ -104,20 +157,23 @@ void display_users()
   system("cls");
   printf(" \t\t\t\t\t\t\tCONECTX4");
   printf("\n\n");
+  display_Align();
+  printf("\t USERS\n\n");
   printUsers();
   printf("\n");
   display_Align();
-  printf("1. add user");
+  printf("1. Add user");
   printf("\n");
   display_Align();
-  printf("2. delete user");
+  printf("2. Delete user");
   printf("\n");
   display_Align();
-  printf("3.Go Back\n");
+  printf("3. Go Back\n\n");
   display_Align();
-
+  printf("Enter: ");
   int choice ;
   scanf("%d",&choice);
+  printf("\t\t\t\t");
   switch(choice)
   {
     case 1:
@@ -130,6 +186,7 @@ void display_users()
       int chk = AddUser(nm);
       if(chk)
       {
+        display_Align();
         printf("User Added Successfully.");
         sleep(2);
         display_users();
@@ -153,12 +210,14 @@ void display_users()
       int chk = DelUser(nm);
       if(chk)
       {
+        display_Align();
         printf("User Deleted Successfully.");
         sleep(2);
         display_users();
       }
       else
       {
+        display_Align();
         printf("User Not Found.");
         sleep(2);
       display_users();
@@ -176,10 +235,13 @@ void display_options()
    int i;
    printf(" \t\t\t\t\t\t\tCONECTX4");
    printf("\n\n");
-   printf("\t\t\t\t\t\t\t1.users\n");
-   printf("\t\t\t\t\t\t\t2.settings\n");
-   printf("\t\t\t\t\t\t\t3.go back\n");
-   //display_Align();
+   display_Align();
+   printf("\tOPTIONS\n\n");
+   printf("\t\t\t\t\t\t1. Users\n");
+   printf("\t\t\t\t\t\t2. Settings\n");
+   printf("\t\t\t\t\t\t3. Go back\n\n");
+   display_Align();
+   printf("Enter: ");
    scanf("%d",&i);
    switch(i){
    case 1:
@@ -207,15 +269,20 @@ void display_play()//play options menu
   system("cls");
   printf(" \t\t\t\t\t\t\tCONECTX4");
   printf("\n\n");
+  display_Align();
+  printf("\t  PLAY\n\n");
   int z;
-  printf("\t\t\t\t\t\t\t1.singlemode\n");
-  printf("\t\t\t\t\t\t\t2.multiplayer\n");
-  printf("\t\t\t\t\t\t\t3.go back\n");
+  printf("\t\t\t\t\t\t1. Single Player Mode\n");
+  printf("\t\t\t\t\t\t2. Multi Player Mode\n");
+  printf("\t\t\t\t\t\t3. Go back\n\n");
+  display_Align();
+  printf("Enter: ");
   scanf("%d",&z);
+  printf("\n");
   switch(z)
   {
   case 1:
-  //display_single();
+    onStartSingle();
   break;
   case 2:
     onStartMulti();
@@ -231,10 +298,13 @@ void display_Start()
   int input;
   printf(" \t\t\t\t\t\t\tCONECTX4");
   printf("\n\n");
-  printf("\t\t\t\t\t\t\t1.play\n");
-  printf("\t\t\t\t\t\t\t2.options\n");
-  printf("\t\t\t\t\t\t\t3.exit\n");
   display_Align();
+  printf("\tMAIN MENU\n\n");
+  printf("\t\t\t\t\t\t1. Play\n");
+  printf("\t\t\t\t\t\t2. Options\n");
+  printf("\t\t\t\t\t\t3. Exit\n\n");
+  display_Align();
+  printf("Enter: ");
   scanf("%d",&input);
   if (input==1)
   {
