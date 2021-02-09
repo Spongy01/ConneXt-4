@@ -10,9 +10,10 @@
 /*
   Called when Singleplayer is Selected
 */
-void onStartSingle(){
+void onStartSingle()
+{
   display_Align();
-  printf(" Coming Soon....");
+  printf(" Coming Soon...");
   sleep(2);
   display_play();
 }
