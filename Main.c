@@ -9,7 +9,7 @@
 
 #include "display.c"
 #include "funcs.h"
-/*File Opening, if previously not presnet, then creation;*/
+/*File Opening, if previously not present, then creation;*/
 void init()
 {
   FILE *f;

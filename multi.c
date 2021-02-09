@@ -172,6 +172,7 @@ int verticalCheck()
     }
     return 0;
 }
+
 int diagonalCheck()
 {
   int row, col ;
