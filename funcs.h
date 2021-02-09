@@ -13,6 +13,7 @@ void saveUsers();
 void printUsers();
 int AddUser(char m[]);
 int DelUser(char nm[]);
+int indexUser(char nm[]);
 
 void loadSettings();
 void saveSettings();
@@ -30,4 +31,17 @@ void display_exit();
 void display_setting();
 void display_savestate();
 void display_modes();
+
+void saveBoard();
+void LoadBoard();
+void select_user();
+void printBoard();
+void makeBoard();
+int takeTurn(int player, const char*);
+int checkWin();
+int checkFour(int, int, int, int,int,int,int,int);
+int horizontalCheck();
+int verticalCheck();
+int diagonalCheck();
+void bringDown(int, int);
 #endif
