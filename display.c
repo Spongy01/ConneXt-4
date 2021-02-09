@@ -142,11 +142,6 @@ void display_modes()
 
 
 
-/*
-  Start Screen
-  will give options to user.
-  and different Screens Will be printed.by calling different Functions
-*/
 void display_Align()
 {
   printf("\t\t\t\t\t\t");
@@ -290,6 +285,11 @@ void display_play()//play options menu
   case 3:
   display_Start();
   break;
+  default:
+  display_Align();
+  printf("Invalid Choice.");
+  sleep(1);
+  display_play();
 }
 }
 void display_Start()
@@ -317,5 +317,11 @@ void display_Start()
   else if(input==3)
   {
     display_exit();
+  }
+  else{
+    display_Align();
+    printf("Invalid Choice.");
+    sleep(1);
+    display_Start();
   }
 }

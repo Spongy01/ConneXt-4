@@ -1,8 +1,7 @@
 /*
   This file contains all the functions
   Required for a multiplayer(1 Vs 1) Gameplay
-
-  */
+*/
 
 #include <stdio.h>
 #include <string.h>
@@ -12,16 +11,7 @@
 int rows =6;
 int columns =7;
 char win =' ';
-void select_user();
-void printBoard();
-void makeBoard();
-int takeTurn(int player, const char*);
-int checkWin();
-int checkFour(int, int, int, int,int,int,int,int);
-int horizontalCheck();
-int verticalCheck();
-int diagonalCheck();
-void bringDown(int, int);
+
 /*
   Called when Multiplayer is Selected
 */
@@ -39,17 +29,24 @@ void bringDown(int row, int col){
 }
 int takeTurn(int player, const char *PIECES)
 {
+  printf("Press 0 to Quit Game;");
   printf("Player %d (%c):\nEnter number coordinate: ", player + 1, PIECES[player]);
   int col=0,row=0;
   while(1)
   {
-     if(1 != scanf("%d", &col) || col < 1 || col > 7 )
+     if(1 != scanf("%d", &col) || col < 0 || col > 7 )
      {
         while(getchar() != '\n');
         puts("Number out of bounds! Try again.");
      }
      else
      {
+        if(col==0){
+          if(checkSave()){
+            saveBoard();
+          }
+          display_play();
+        }
         break;
      }
   }
@@ -78,6 +75,21 @@ void onStartMulti()
     int diff =0;
     select_user();
     makeBoard();
+    if(checkSave()){
+      FILE *f;
+      f = fopen("saveState.txt", "r");
+      if (f)
+    	{
+    		fseek (f, 0, SEEK_END);
+    		int size = ftell(f);
+        if(size !=0)
+        {
+          LoadBoard();
+        }
+    	}
+      fclose(f);
+    }
+
     int turn=0,done=0;
     for(turn = 0; turn <rows*columns && (diff<score_diff); turn++)
     {
@@ -127,10 +139,22 @@ void onStartMulti()
     {
       if(score_p1>score_p2){
         printf("Player 1 (%c) wins !\n", PIECES[0]);
+        int index = indexUser(current[0].name);
+        users[index].score += 10;
+        saveUsers();
       }
       else{
         printf("Player 2 (%c) wins !\n", PIECES[1]);
+        int index = indexUser(current[1].name);
+        users[index].score += 10;
+        saveUsers();
       }
+      sleep(3);
+      //char c;
+      //printf("Press Enter to Continue>>");
+      //getc(c);
+      //getc(c);
+      display_play();
     }
 }
 
@@ -227,9 +251,9 @@ int verticalCheck()
           win = board[row][col];
           if(checkDiff()){
             bringDown(row+3,col);
-            bringDown(row+2,col);
-            bringDown(row+1,col);
-            bringDown(row,col);
+            bringDown(row+3,col);
+            bringDown(row+3,col);
+            bringDown(row+3,col);
           }
 
           return 1;
@@ -293,6 +317,32 @@ void makeBoard()
         board[i][j] = ' ';
       }
     }
+}
+
+void saveBoard(){
+  FILE *f;
+  f = fopen("saveState.txt","w");
+  for(int i=0;i<rows;i++)
+  {
+    for(int j=0;j<columns;j++)
+    {
+      fprintf(f,"%c",board[i][j]);
+    }
+  }
+    fclose(f);
+}
+void LoadBoard(){
+  FILE *f;
+  f = fopen("saveState.txt","r");
+  for(int i=0;i<rows;i++)
+  {
+    for(int j=0;j<columns;j++)
+    {
+      fscanf(f,"%c",&board[i][j]);
+    }
+    //fprintf(f, "\n" );
+  }
+  fclose(f);
 }
 void printBoard()
 {

@@ -88,10 +88,13 @@ void printUsers()
 {
   for(int i=0;i<len;i++)
   {
-    //extractUsers();
     display_Align();
-    printf("%s %d\n",users[i].name,users[i].score);
-    //printf("\n");
+    printf("%s",users[i].name);
+    int l = strlen(users[i].name);
+    for(int k=l;k<=20;k++){
+      printf(" ");
+    }
+    printf("%d\n",users[i].score);
   }
 
 }
@@ -122,9 +125,22 @@ int checkUser(char nm[])
   {
     if(strcmp(users[i].name,nm)==0)
     {
-      chk =1;}
+      chk =1;
     }
+  }
     return chk;
+}
+int indexUser(char nm[]){
+  int chk =0;
+  for(int i=0;i<len;i++)
+  {
+    if(strcmp(users[i].name,nm)==0)
+    {
+      chk =i;
+    }
+  }
+  return chk;
+
 }
 
 /*
