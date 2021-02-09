@@ -167,6 +167,7 @@ int verticalCheck()
     }
     return 0;
 }
+
 int diagonalCheck()
 {
   int row, col ;
@@ -209,7 +210,7 @@ void makeBoard()
 }
 void printBoard()
 {
-  //puts("-----------------------------");
+
   for(int i=0;i<rows;i++)
   {
     for(int j=0;j<columns;j++)
