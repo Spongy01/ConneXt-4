@@ -19,9 +19,14 @@ int checkFour(int, int, int, int,int,int,int,int);
 int horizontalCheck();
 int verticalCheck();
 int diagonalCheck();
+void bringDown(int, int);
 /*
   Called when Multiplayer is Selected
 */
+
+void bringDown(int row, int col){
+
+}
 int takeTurn(int player, const char *PIECES)
 {
   printf("Player %d (%c):\nEnter number coordinate: ", player + 1, PIECES[player]);
@@ -209,7 +214,7 @@ void makeBoard()
 }
 void printBoard()
 {
-  //puts("-----------------------------");
+
   for(int i=0;i<rows;i++)
   {
     for(int j=0;j<columns;j++)
