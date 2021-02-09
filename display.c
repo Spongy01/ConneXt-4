@@ -13,6 +13,7 @@
 #include "users.c"
 #include "funcs.h"
 #include "multi.c"
+#include "single.c"
 
 void display_savestate()
 {
@@ -62,9 +63,9 @@ void display_setting()
   printf(" \t\t\t\t\t\t\tCONECTX4");
   printf("\n\n");
   display_Align();
-  printf("1. Save Game Progress In-Game\n");
+  printf("1. Toggle Game Modes\n");
   display_Align();
-  printf("2. Toggle Difficulty\n");
+  printf("2. Save State\n");
   display_Align();
   printf("3. Go Back\n");
   scanf("%d",&a);
@@ -78,12 +79,14 @@ void display_setting()
   {
     case 1:
     {
-      display_savestate();
+      display_modes();
+      break;
     }
 
     case 2:
     {
-
+        display_savestate();
+        break;
     }
     case 3:
     {
@@ -91,6 +94,46 @@ void display_setting()
     }
   }
 }
+void display_modes()
+{
+  system("cls");
+  int a;
+  printf(" \t\t\t\t\t\t\tCONECTX4");
+  printf("\n\n");
+  display_Align();
+
+  printf("1. Simple - Normal Connect-4 Game.\n");
+  display_Align();
+  printf("2. Adv - ConneXt4 ; Tetris Twist.\n");
+  display_Align();
+  printf("3. Go Back.\n\n\n");
+  display_Align();
+  if(checkDiff())
+  {
+    printf("Currently Selected: Adv.\n\n");
+  }
+  else
+  {
+    printf("Currently Selected: Simple.\n\n");
+  }
+  display_Align();
+  scanf("%d",&a);
+  if(a<1 || a>3)
+  {
+    printf("Not Valid Choice");
+    display_modes();
+  }
+  if(a==1||a==2)
+  {
+    ammendDiff(a-1);
+    display_modes();
+  }
+  display_setting();
+
+}
+
+
+
 /*
   Start Screen
   will give options to user.
@@ -217,7 +260,7 @@ void display_play()//play options menu
   switch(z)
   {
   case 1:
-  //display_single();
+    onStartSingle();
   break;
   case 2:
     onStartMulti();

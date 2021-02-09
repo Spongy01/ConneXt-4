@@ -29,4 +29,5 @@ void display_options();
 void display_exit();
 void display_setting();
 void display_savestate();
+void display_modes();
 #endif
