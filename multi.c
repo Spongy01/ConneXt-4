@@ -95,13 +95,14 @@ void select_user()
     char nm[20];
     char dummy[1];
     gets(dummy);
-    printf("Select the Player 1: ");
+    printf("\n");
+    printf("\t\t\tSelect the Player 1:   ");
     gets(nm);
     int check = checkUser(nm);
 
     if(!check)
     {
-      printf("User Not Found");
+      printf("\n\t\t\t\t\tUser Not Found. (Press Enter to Continue)\n");
       goto p1;
     }
     else
@@ -113,12 +114,13 @@ void select_user()
   p2:
   {
   char nm[20];
-  printf("Select the Player 2: ");
+  printf("\n");
+  printf("\t\t\tSelect the Player 2:   ");
   gets(nm);
   int check = checkUser(nm);
   if(!check)
   {
-    printf("User Not Found");
+    printf("\n\t\t\t\t\tUser Not Found. (Press Enter to Continue)\n");
     goto p2;
   }
   else
