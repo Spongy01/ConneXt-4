@@ -18,6 +18,7 @@ void init()
   f = fopen("setting.txt", "a");
   if (f)
 	{
+
 		fseek (f, 0, SEEK_END);
 		int size = ftell(f);
 	//	printf("Size of the file in bytes: %d\n", size);
@@ -33,7 +34,7 @@ void init()
 
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
   init();
   init_users();
