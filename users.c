@@ -91,7 +91,8 @@ void printUsers()
     display_Align();
     printf("%s",users[i].name);
     int l = strlen(users[i].name);
-    for(int k=l;k<=20;k++){
+    for(int k=l;k<=20;k++)
+    {
       printf(" ");
     }
     printf("%d\n",users[i].score);
@@ -130,7 +131,8 @@ int checkUser(char nm[])
   }
     return chk;
 }
-int indexUser(char nm[]){
+int indexUser(char nm[])
+{
   int chk =0;
   for(int i=0;i<len;i++)
   {
@@ -197,6 +199,7 @@ void loadSettings()
   fclose(f);
 
 }
+
 void saveSettings()
 {
   FILE *f;

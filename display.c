@@ -45,7 +45,7 @@ void display_savestate()
   scanf("%d",&a);
   if(a<1 || a>3)
   {
-    printf("Not Valid Choice");
+    printf("Invalid Choice");
     display_savestate();
   }
   if(a==1||a==2)
@@ -76,7 +76,7 @@ void display_setting()
   scanf("%d",&a);
   if(a<1 || a>3)
   {
-    printf("Not Valid Choice");
+    printf("Invalid Choice");
     display_setting();
   }
 

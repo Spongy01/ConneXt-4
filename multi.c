@@ -19,21 +19,24 @@ int score_p2=0;
   Called when Multiplayer is Selected
 */
 
-void bringDown(int row, int col){
-
-   for(int i=row;i>0;i--){
+void bringDown(int row, int col)
+{
+   for(int i=row;i>0;i--)
+   {
      board[i][col] = board[i-1][col];
    }
-   //printBoard();
-   //sleep(2);
-   if(board[0][col] != ' '){
+   if(board[0][col] != ' ')
+   {
      board[0][col] = ' ';
    }
 }
+
 int takeTurn(int player, const char *PIECES)
 {
-  printf("Press 0 to Quit Game;");
-  printf("Player %d (%c):\nEnter number coordinate: ", player + 1, PIECES[player]);
+  display_Align();
+  printf("Press 0 to Quit Game\n");
+  display_Align();
+  printf("Player %d (%c):\n\n\t\t\t\t\t\tEnter number coordinate: ", player + 1, PIECES[player]);
   int col=0,row=0;
   while(1)
   {
@@ -44,8 +47,12 @@ int takeTurn(int player, const char *PIECES)
      }
      else
      {
-        if(col==0){
-          if(checkSave()){
+
+
+        if(col==0)
+        {
+          if(checkSave())
+          {
             saveBoard(player);
           }
           display_play();
@@ -70,12 +77,14 @@ void onStartMulti()
 {
     const char *PIECES = "XO";
     int score_diff =1;
-
     if(checkDiff()){
       score_diff =2;
     }
     int diff =0;
     if(checkSave()){
+
+   
+
       FILE *f;
       f = fopen("saveState.txt", "r");
       if (f)
@@ -123,7 +132,8 @@ void onStartMulti()
     for(; turn <rows*columns && (diff<score_diff); turn++)
     {
        system("cls");
-       printf("Score Board : P1 : %d :: P2 : %d ::\n",score_p1,score_p2);
+       display_Align();
+       printf("Score Board : P1 : %d :: P2 : %d ::\n\n\n",score_p1,score_p2);
        printBoard();
        while(!takeTurn(turn % 2,PIECES))
        {
@@ -133,47 +143,64 @@ void onStartMulti()
        }
 
        label:
-
        done = checkWin();
-       if(done){
-         if(win=='X'){
+       if(done)
+       {
+         if(win=='X')
+         {
            score_p1++;
            win =' ';
          }
-         else if(win =='O'){
+         else if(win =='O')
+         {
            score_p2++;
            win = ' ';
-
          }
          diff = abs(score_p1-score_p2);
-         if(diff==score_diff){
+         if(diff==score_diff)
+         {
            break;
          }
        }
+
        system("cls");
-       printf("Score Board : P1 : %d :: P2 : %d ::\n",score_p1,score_p2);
+       display_Align();
+       printf("Score Board : P1 : %d :: P2 : %d ::\n\n",score_p1,score_p2);
        printBoard();
-       if(done){
+       if(done)
+       {
        goto label;
-     }
+       }
     }
+
     system("cls");
+    display_Align();
+    printf("Score Board : P1 : %d :: P2 : %d ::\n\n",score_p1,score_p2);
     printBoard();
 
     if(turn == rows*columns && diff!= score_diff)
     {
+      display_Align();
       puts("\nIts a Tie");
     }
     else if(diff == score_diff)
     {
-      if(score_p1>score_p2){
-        printf("Player 1 (%c) :: %s :: wins !\n", PIECES[0], current[0].name);
+
+
+      if(score_p1>score_p2)
+      {
+        display_Align();
+        printf("Player 1 (%c) :: %s :: wins !\n", PIECES[0],current[0].name);
         int index = indexUser(current[0].name);
         users[index].score += 10;
         saveUsers();
       }
-      else{
+
+      else
+      {
+        display_Align();
         printf("Player 2 (%c) :: %s ::wins !\n", PIECES[1],current[1].name);
+
         int index = indexUser(current[1].name);
         users[index].score += 10;
         saveUsers();
@@ -197,14 +224,14 @@ void select_user()
     int check = checkUser(nm);
 
     if(!check)
-    {
-      printf("\n\t\t\t\t\tUser Not Found. (Press Enter to Continue)\n");
-      goto p1;
-    }
+      {
+        printf("\n\t\t\t\t\tUser Not Found. (Press Enter to Continue)\n");
+        goto p1;
+      }
     else
-    {
+      {
         strcpy(current[0].name,nm);
-    }
+      }
   }
 
   p2:
@@ -215,15 +242,15 @@ void select_user()
   gets(nm);
   int check = checkUser(nm);
   if(!check)
-  {
-    printf("\n\t\t\t\t\tUser Not Found. (Press Enter to Continue)\n");
-    goto p2;
-  }
+    {
+      printf("\n\t\t\t\t\tUser Not Found. (Press Enter to Continue)\n");
+      goto p2;
+    }
   else
-  {
+    {
       strcpy(current[1].name,nm);
+    }
   }
-}
 
 }
 
@@ -298,14 +325,15 @@ for(row = 0; row < (rows-3); row++)
    for(col = 0; col < (columns-3); col++)
    {
       if(checkFour(row,row+1,row+2,row+3,col,col+1,col+2,col+3))
-      {win = board[row][col];
-        if(checkDiff()){
+      {
+        win = board[row][col];
+        if(checkDiff())
+        {
           bringDown(row,col);
           bringDown(row+1,col+1);
           bringDown(row+2,col+2);
           bringDown(row+3,col+3);
         }
-
          return 1;
       }
    }
@@ -317,7 +345,8 @@ for(row = 3; row < (rows); row++)
       if(checkFour(row,row-1,row-2,row-3,col,col+1,col+2,col+3))
       {
         win = board[row][col];
-        if(checkDiff()){
+        if(checkDiff())
+        {
           bringDown(row,col);
           bringDown(row-1,col+1);
           bringDown(row-2,col+2);
@@ -344,7 +373,9 @@ void makeBoard()
     }
 }
 
-void saveBoard(int p){
+
+void saveBoard(int p)
+{
   FILE *f;
   f = fopen("saveState.txt","w");
   fputs(current[0].name,f);
@@ -370,7 +401,8 @@ void saveBoard(int p){
   }
     fclose(f);
 }
-void LoadBoard(){
+void LoadBoard()
+{
   FILE *f;
   f = fopen("saveState.txt","r");
   char dumm[1];
@@ -403,14 +435,17 @@ void printBoard()
 
   for(int i=0;i<rows;i++)
   {
+    display_Align();
     for(int j=0;j<columns;j++)
     {
       printf("| %c ",board[i][j]);
     }
     puts("|");
+    display_Align();
     puts("-----------------------------");
     printf("\n");
 
   }
+  display_Align();
   puts("  1   2   3   4   5   6   7\n");
 }
