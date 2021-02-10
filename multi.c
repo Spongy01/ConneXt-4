@@ -93,11 +93,11 @@ void onStartMulti()
     		int size = ftell(f);
         if(size !=0)
         {
-          char chk;
+          char chk;  char dumm[1];
             saveinput:
-
             display_Align();
             printf("Previous Game Save data Found. Do you want to load[y/n].");
+            gets(dumm);
             display_Align();
             scanf("%c",&chk);
             if(chk=='y'){
