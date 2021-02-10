@@ -83,7 +83,7 @@ void onStartMulti()
     int diff =0;
     if(checkSave()){
 
-   
+
 
       FILE *f;
       f = fopen("saveState.txt", "r");
@@ -191,16 +191,16 @@ void onStartMulti()
       {
         display_Align();
         printf("Player 1 (%c) :: %s :: wins !\n", PIECES[0],current[0].name);
+        score_p1=0;score_p2=0;
         int index = indexUser(current[0].name);
         users[index].score += 10;
         saveUsers();
       }
-
       else
       {
         display_Align();
         printf("Player 2 (%c) :: %s ::wins !\n", PIECES[1],current[1].name);
-
+        score_p1=0;score_p2=0;
         int index = indexUser(current[1].name);
         users[index].score += 10;
         saveUsers();
