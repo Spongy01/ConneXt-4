@@ -50,6 +50,7 @@ void extractUsers()
   fclose(f);
   len = countUsers();
 }
+
 /*
   To count the Number of Users Registered.
 */
@@ -65,6 +66,7 @@ int countUsers()
   }
   return count;
 }
+
 /*
  To Update the User List into the file along with scores.
 */
@@ -79,8 +81,8 @@ void saveUsers()
     fprintf(f,"%s %d\n",users[i].name,users[i].score);
   }
   fclose(f);
-
 }
+
 /*
   To print the Users
 */
@@ -99,6 +101,7 @@ void printUsers()
   }
 
 }
+
 /*
   Adds a user if limit is not reached
   return values:
@@ -131,6 +134,8 @@ int checkUser(char nm[])
   }
     return chk;
 }
+
+
 int indexUser(char nm[])
 {
   int chk =0;
@@ -200,6 +205,7 @@ void loadSettings()
 
 }
 
+
 void saveSettings()
 {
   FILE *f;
@@ -210,6 +216,7 @@ void saveSettings()
   fclose(f);
 }
 
+
 /*
   checks the value of SaveSett setting
   which allows user to be able to save their in game progress
@@ -219,6 +226,7 @@ int checkSave()
 {
   return settings[0].value;
 }
+
 
 /*
  Changes the value of SaveSet settings

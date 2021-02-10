@@ -13,10 +13,14 @@
 #include "multi.c"
 #include "single.c"
 
-void display_credits(){
-  printf("\n\n\n\t\t\t\t\tCreated By:Madhav, Amaan , Ali");
+void display_credits()
+{
+  printf("\n\n\n\t\t\t\t\t\t  CREATED BY:\n\n");
+  printf("\t\t\t\t\t\tMadhav Kanakhara\n");
+  printf("\t\t\t\t\t\tAmaan Mansuri\n");
+  printf("\t\t\t\t\t\tAliAsgar Padaria\n");
   sleep(2);
-  printf("\n\n\n\t\t\t\t\t\tLOADING ");
+  printf("\n\n\n\t\t\t\t\t\t  LOADING ");
   sleep(1);
   printf(".");
   sleep(1);
@@ -321,7 +325,6 @@ void display_play()//play options menu
 }
 void display_Start()
 {
-  display_credits();
   system("cls");
   int input;
   printf(" \t\t\t\t\t\t\tCONECTX4");

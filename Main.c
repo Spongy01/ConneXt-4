@@ -36,6 +36,7 @@ int main()
   init();
   init_users();
   // Now call the display fuctions to print the game.
+  display_credits();
   display_Start();
   return 0;
 }

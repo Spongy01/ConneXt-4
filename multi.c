@@ -95,27 +95,28 @@ void onStartMulti()
         {
           char chk;  char dumm[1];
             saveinput:
-            display_Align();
-            printf("Previous Game Save data Found. Do you want to load[y/n].");
             gets(dumm);
-            display_Align();
+            printf("\t\t\t   Previous Game Save data Found. Do you want to load [y/n].  ");
             scanf("%c",&chk);
             if(chk=='y'){
                 LoadBoard();
-                printf("\n\nA game with Users: %s and %s is Found!\n\n",current[0].name, current[1].name);
+                printf("\n\n\t\t\t\t  A game with Users: %s and %s is Found!\n\n",current[0].name, current[1].name);
                 sleep(2);
             }
-            else if(chk=='n'){
+            else if(chk=='n')
+            {
               select_user();
               makeBoard();
             }
-            else{
+            else
+            {
               display_Align();
               printf("Invalid Input. Try again.");
               goto saveinput;
             }
         }
-        else{
+        else
+        {
           select_user();
           makeBoard();
         }
@@ -124,7 +125,8 @@ void onStartMulti()
       f = fopen("saveState.txt","w");
       fclose(f);
     }
-    else{
+    else
+    {
       select_user();
       makeBoard();
     }
@@ -407,18 +409,14 @@ void saveBoard(int p)
   }
     fclose(f);
 }
+
 void LoadBoard()
 {
   FILE *f;
   f = fopen("saveState.txt","r");
   char dumm[1];
   fscanf(f,"%s %s %d %d %d",current[0].name,current[1].name,&turn,&score_p1,&score_p2);
-  printf("Player 1 is : %s\n", current[0].name);
-  printf("Player 2 is : %s\n", current[1].name);
-  printf("Turn number is : %d\n", turn);
-  //printf("Now going inside the loops:\n");
-  //gets(dumm);
-  //printf("Dummy is '%s'",dumm);
+
   char dum;
   fscanf(f,"%c",&dum);
   for(int i=0;i<rows;i++)
@@ -436,6 +434,7 @@ void LoadBoard()
   }
   fclose(f);
 }
+
 void printBoard()
 {
 
