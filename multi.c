@@ -212,6 +212,12 @@ void onStartMulti()
 
 void select_user()
 {
+  if(len<2){
+
+    printf("\t\t\tThere are insufficient users, first Add users to play the game...");
+    sleep(3);
+    display_users();
+  }
   printUsers();
   p1:
   {

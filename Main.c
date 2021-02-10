@@ -18,7 +18,6 @@ void init()
   f = fopen("setting.txt", "a");
   if (f)
 	{
-
 		fseek (f, 0, SEEK_END);
 		int size = ftell(f);
     if(size ==0)
@@ -36,7 +35,7 @@ int main()
 {
   init();
   init_users();
-  // Now call the display fuctions to print stuff(pending.)
+  // Now call the display fuctions to print the game.
   display_Start();
   return 0;
 }

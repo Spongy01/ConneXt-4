@@ -31,6 +31,7 @@ void display_exit();
 void display_setting();
 void display_savestate();
 void display_modes();
+void display_credits();
 
 void saveBoard(int);
 void LoadBoard();

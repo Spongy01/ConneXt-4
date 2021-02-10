@@ -13,6 +13,19 @@
 #include "multi.c"
 #include "single.c"
 
+void display_credits(){
+  printf("\n\n\n\t\t\t\t\tCreated By:Madhav, Amaan , Ali");
+  sleep(2);
+  printf("\n\n\n\t\t\t\t\t\tLOADING ");
+  sleep(1);
+  printf(".");
+  sleep(1);
+  printf(".");
+  sleep(1);
+  printf(".");
+  sleep(2);
+}
+
 void display_savestate()
 {
   system("cls");
@@ -168,6 +181,12 @@ void display_users()
   printf("Enter: ");
   int choice ;
   scanf("%d",&choice);
+  if(choice<1 || choice>3)
+  {
+    printf("Invalid Choice");
+    sleep(1);
+    display_users();
+  }
   printf("\t\t\t\t");
   switch(choice)
   {
@@ -238,6 +257,12 @@ void display_options()
    display_Align();
    printf("Enter: ");
    scanf("%d",&i);
+   if(i<1 || i>3)
+   {
+     printf("Invalid Choice");
+     sleep(1);
+     display_options();
+   }
    switch(i){
    case 1:
    display_users();
@@ -256,7 +281,7 @@ void display_exit()
   printf(" \t\t\t\t\t\t\tCONECTX4");
   printf("\n\n");
   display_Align();
-  printf("--------");
+  printf("\t--------");
     exit(0);
 }
 void display_play()//play options menu
@@ -274,6 +299,12 @@ void display_play()//play options menu
   printf("Enter: ");
   scanf("%d",&z);
   printf("\n");
+  if(z<1 || z>3)
+  {
+    printf("Invalid Choice");
+    sleep(1);
+    display_play();
+  }
   switch(z)
   {
   case 1:
@@ -285,15 +316,12 @@ void display_play()//play options menu
   case 3:
   display_Start();
   break;
-  default:
-  display_Align();
-  printf("Invalid Choice.");
-  sleep(1);
-  display_play();
+
 }
 }
 void display_Start()
 {
+  display_credits();
   system("cls");
   int input;
   printf(" \t\t\t\t\t\t\tCONECTX4");
