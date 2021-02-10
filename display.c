@@ -2,7 +2,6 @@
   This File ontains functions related to displaying the game elements
   On The Command Prompt.
   It will Display the screens.
-
 */
 
 #include <stdio.h>

@@ -1,6 +1,6 @@
 #ifndef FUNCS_H
 #define FUNCS_H
-// Header File. Yaay
+
 struct data{char name[20];int score;}users[10];
 struct sett{char setting[20];int value;}settings[2];
 struct user{char name[20];}current[2];

@@ -15,9 +15,6 @@ int turn=0;
 int score_p1=0;
 int score_p2=0;
 
-/*
-  Called when Multiplayer is Selected
-*/
 
 void bringDown(int row, int col)
 {
@@ -72,6 +69,10 @@ int takeTurn(int player, const char *PIECES)
    }
   return 0;
 }
+
+/*
+  Called when Multiplayer is Selected
+*/
 
 void onStartMulti()
 {
@@ -428,9 +429,9 @@ void LoadBoard()
       if(board[i][j]=='-'){
         board[i][j]= ' ';
       }
-      //printf("Inside the J loop: Data : i = %d;  j = %d; board val is = %c\n",i,j,board[i][j]);
+
     }
-    //fprintf(f, "\n" );
+
   }
   fclose(f);
 }

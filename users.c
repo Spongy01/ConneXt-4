@@ -1,7 +1,7 @@
 /*
   This file contains all the functions
   Related to User Management
-  */
+*/
 
 #include <stdio.h>
 #include <string.h>
