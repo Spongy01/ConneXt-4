@@ -21,8 +21,6 @@ void init()
 
 		fseek (f, 0, SEEK_END);
 		int size = ftell(f);
-	//	printf("Size of the file in bytes: %d\n", size);
-    //sleep(5);
     if(size ==0)
     {
       fprintf(f,"SaveSett 0\nDiff 0\n");

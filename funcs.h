@@ -32,7 +32,7 @@ void display_setting();
 void display_savestate();
 void display_modes();
 
-void saveBoard();
+void saveBoard(int);
 void LoadBoard();
 void select_user();
 void printBoard();

@@ -11,6 +11,9 @@
 int rows =6;
 int columns =7;
 char win =' ';
+int turn=0;
+int score_p1=0;
+int score_p2=0;
 
 /*
   Called when Multiplayer is Selected
@@ -44,11 +47,13 @@ int takeTurn(int player, const char *PIECES)
      }
      else
      {
+
+
         if(col==0)
         {
           if(checkSave())
           {
-            saveBoard();
+            saveBoard(player);
           }
           display_play();
         }
@@ -72,17 +77,14 @@ void onStartMulti()
 {
     const char *PIECES = "XO";
     int score_diff =1;
-    int score_p1=0;
-    int score_p2=0;
-    if(checkDiff())
-    {
+    if(checkDiff()){
       score_diff =2;
     }
     int diff =0;
-    select_user();
-    makeBoard();
-    if(checkSave())
-    {
+    if(checkSave()){
+
+   
+
       FILE *f;
       f = fopen("saveState.txt", "r");
       if (f)
@@ -91,14 +93,43 @@ void onStartMulti()
     		int size = ftell(f);
         if(size !=0)
         {
-          LoadBoard();
+          char chk;
+            saveinput:
+
+            display_Align();
+            printf("Previous Game Save data Found. Do you want to load[y/n].");
+            display_Align();
+            scanf("%c",&chk);
+            if(chk=='y'){
+                LoadBoard();
+                printf("\n\nA game with Users: %s and %s is Found!\n\n",current[0].name, current[1].name);
+                sleep(2);
+            }
+            else if(chk=='n'){
+              select_user();
+              makeBoard();
+            }
+            else{
+              display_Align();
+              printf("Invalid Input. Try again.");
+              goto saveinput;
+            }
+        }
+        else{
+          select_user();
+          makeBoard();
         }
     	}
       fclose(f);
+      f = fopen("saveState.txt","w");
+      fclose(f);
     }
-
-    int turn=0,done=0;
-    for(turn = 0; turn <rows*columns && (diff<score_diff); turn++)
+    else{
+      select_user();
+      makeBoard();
+    }
+    int done=0;
+    for(; turn <rows*columns && (diff<score_diff); turn++)
     {
        system("cls");
        display_Align();
@@ -154,18 +185,22 @@ void onStartMulti()
     }
     else if(diff == score_diff)
     {
+
+
       if(score_p1>score_p2)
       {
         display_Align();
-        printf("Player 1 (%c) wins !\n", PIECES[0]);
+        printf("Player 1 (%c) :: %s :: wins !\n", PIECES[0],current[0].name);
         int index = indexUser(current[0].name);
         users[index].score += 10;
         saveUsers();
       }
+
       else
       {
         display_Align();
-        printf("Player 2 (%c) wins !\n", PIECES[1]);
+        printf("Player 2 (%c) :: %s ::wins !\n", PIECES[1],current[1].name);
+
         int index = indexUser(current[1].name);
         users[index].score += 10;
         saveUsers();
@@ -338,15 +373,30 @@ void makeBoard()
     }
 }
 
-void saveBoard()
+
+void saveBoard(int p)
 {
   FILE *f;
   f = fopen("saveState.txt","w");
+  fputs(current[0].name,f);
+  fprintf(f," ");
+  fputs(current[1].name,f);
+  fprintf(f," ");
+  fprintf(f,"%d ",p);
+  fprintf(f,"%d ", score_p1 );
+  fprintf(f,"%d\n",score_p2 );
+
+
   for(int i=0;i<rows;i++)
   {
     for(int j=0;j<columns;j++)
     {
-      fprintf(f,"%c",board[i][j]);
+      if(board[i][j]==' '){
+        fprintf(f,"-");
+      }
+      else{
+        fprintf(f,"%c",board[i][j]);
+      }
     }
   }
     fclose(f);
@@ -355,11 +405,26 @@ void LoadBoard()
 {
   FILE *f;
   f = fopen("saveState.txt","r");
+  char dumm[1];
+  fscanf(f,"%s %s %d %d %d",current[0].name,current[1].name,&turn,&score_p1,&score_p2);
+  printf("Player 1 is : %s\n", current[0].name);
+  printf("Player 2 is : %s\n", current[1].name);
+  printf("Turn number is : %d\n", turn);
+  //printf("Now going inside the loops:\n");
+  //gets(dumm);
+  //printf("Dummy is '%s'",dumm);
+  char dum;
+  fscanf(f,"%c",&dum);
   for(int i=0;i<rows;i++)
   {
     for(int j=0;j<columns;j++)
     {
+
       fscanf(f,"%c",&board[i][j]);
+      if(board[i][j]=='-'){
+        board[i][j]= ' ';
+      }
+      //printf("Inside the J loop: Data : i = %d;  j = %d; board val is = %c\n",i,j,board[i][j]);
     }
     //fprintf(f, "\n" );
   }
